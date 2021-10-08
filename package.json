@@ -25,7 +25,7 @@
     "export": "next export",
     "start": "next start",
     "predeploy": "npm run build && npm run export && cp google74bbd1bb0c2ee4ad.html out/google74bbd1bb0c2ee4ad.html && cp robots.txt out/robots.txt && cp sitemap.xml out/sitemap.xml && cp .nojekyll out/.nojekyll && cp .nojekyll build/.nojekyll",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d out"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +44,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ],
-    "homepage": "https://parkjeongwoong.github.io/testPage"
+    "homepage": "https://parkjeongwoong.github.io/testPage/"
   }
 }

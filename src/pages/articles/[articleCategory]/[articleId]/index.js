@@ -6,6 +6,7 @@ import { store } from "store/store";
 import { useRouter } from "next/router";
 import globalStyles from "styles/globalStyles.module.css";
 import styles from "styles/pages/ArticleDetail.module.css";
+import articles from "store/article_data";
 
 function ArticleDetail() {
   // router 사용
@@ -67,7 +68,7 @@ function ArticleDetail() {
         siteTitle="웅's 블로그"
       />
 
-      <div>
+      <main>
         {isLoading ? (
           <div className={globalStyles.loader}>
             <span className={globalStyles.loader_text}>Loading...</span>
@@ -87,9 +88,65 @@ function ArticleDetail() {
             </div>
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }
 
 export default ArticleDetail;
+
+export async function getStaticPaths() {
+  const paths = [];
+  articles.categoryList.forEach(category =>
+    category.itemList.forEach(article =>
+      paths.push({
+        params: {
+          articleCategory: article.category,
+          articleId: article.id.toString(),
+        },
+      })
+    )
+  );
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context) {
+  // 변수
+  let path = "";
+  let documentTitle = "";
+  let markdown = "";
+
+  // 파일 주소 찾기
+
+  if (articles.categoryList) {
+    articles.categoryList.forEach(categoryElement => {
+      if (categoryElement.category === context.params.articleCategory) {
+        categoryElement.itemList.forEach(articleElement => {
+          if (articleElement.id === parseInt(context.params.articleId)) {
+            path = articleElement.content;
+            documentTitle = articleElement.title;
+          }
+        });
+      }
+    });
+  }
+
+  if (path) {
+    const readmePath = require(`store/article_data/${path.split("/")[2]}/${
+      path.split("/")[3]
+    }`);
+
+    markdown = readmePath.default;
+  }
+
+  return {
+    props: {
+      markdown,
+      documentTitle,
+    },
+  };
+}

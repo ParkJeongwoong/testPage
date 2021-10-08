@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import SEO from "components/seo";
 import { store } from "store/store";
 import Link from "next/link";
-import Image from "next/image";
 import globalStyles from "styles/globalStyles.module.css";
 import styles from "styles/pages/Home.module.css";
 

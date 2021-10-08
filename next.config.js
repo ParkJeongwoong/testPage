@@ -1,4 +1,6 @@
 module.exports = {
+  basePath: "/.",
+  // basePath: "/testPage",
   reactStrictMode: true,
   webpack: config => {
     config.module.rules.push({ test: /\.md$/, use: "raw-loader" });
@@ -6,7 +8,7 @@ module.exports = {
   },
   distDir: "build",
   // trailingSlash: true,
-  assetPrefix: "./",
+  // assetPrefix: "./",
   images: {
     loader: "imgix",
     path: "https://noop/",

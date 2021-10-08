@@ -6,8 +6,7 @@ import { store } from "store/store";
 import globalStyles from "styles/globalStyles.module.css";
 import styles from "styles/pages/Articles.module.css";
 
-function Articles({ test }) {
-  console.log(test);
+function Articles() {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
   const { dispatch } = globalState;
@@ -51,11 +50,3 @@ function Articles({ test }) {
 }
 
 export default Articles;
-
-export async function getStaticProps() {
-  return {
-    props: {
-      test: "Hello, this is Test Data",
-    },
-  };
-}
